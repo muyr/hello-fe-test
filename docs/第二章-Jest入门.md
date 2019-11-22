@@ -80,7 +80,7 @@ module.exports = {
 然后在测试文件中导入进来
 
 ```js
-matcher.test.js
+// matcher.test.js
 const {add} = require('./math.js')
 
 test('测试加法', () => {
@@ -93,6 +93,7 @@ test('测试加法', () => {
 但是呢，如果我们的`html`文件引入该`js`则会报错说`module`是个什么玩意，这么我们的暂时解决方案是`try`一下（实际上现在的项目很少直接自己在`html`里引用`js`，都前端工程化了）
 
 ```js
+// math.js
 try { 
     module.exports = {
     	add
@@ -124,7 +125,7 @@ coverageDirectory: "hahaha",
 npx jest --coverage
 ```
 
-或者将``package.json` 里面增加
+或者将`package.json` 里面增加
 
 ```json
 "scripts": {
@@ -152,7 +153,7 @@ export function add(a, b) {
     return a + b
 }
 
-matcher.test.js
+// matcher.test.js
 import {add} from './math'
 ```
 
@@ -200,7 +201,7 @@ npm install @babel/core@7.4.5 @babel/preset-env@7.4.5 -D
 
 ### 自动监控测试文件
 
-让`jest`自动监控测试文件，一有更新，就自动运行测试。`--watchAll`参数
+让`jest`自动监控测试文件，一有更新，就自动运行测试。在`package.json`中的`jest`那里加上`--watchAll`参数
 
 ```json
 "script": {
@@ -218,8 +219,6 @@ npm install @babel/core@7.4.5 @babel/preset-env@7.4.5 -D
 const a = {one: 1}
 expect(a).toBe({one: 1})
 ```
-
-### 
 
 #### toEqual 
 
@@ -455,3 +454,57 @@ test('返回 404', () => {
 })
 ```
 
+## Jest 的钩子函数
+
+* `beforeAll`
+* `afterAll`
+* `beforeEach`
+* `afterEach`
+
+直接写在测试文件里，钩子函数接受一个函数
+
+```js
+beforeAll(() => {
+    // 做一些初始化
+	console.log('before all')
+})
+```
+
+
+
+### 对测试进行分组
+
+```js
+describe('这里是描述：测试跟xxx相关', ()=> {
+    describe('也可以嵌套', () => {
+        test('测试xxx', () =>{
+            
+        })
+    })
+    describe('也可以并列', () => {
+        test('测试yyy', () =>{
+            
+        })
+    })
+})
+```
+
+
+
+钩子函数是有**作用域**的，取决于钩子函数位于 `describe` 中的位置。
+
+## mock
+
+
+
+## snapshot
+
+用来测试配置文件。目的只是为了提醒你，配置文件真的是要改，还是手滑了。
+
+
+
+相关命令行操作模式
+
+* `i` 下一个需要更新的 snapshot
+
+* `u` 更新 snapshot
