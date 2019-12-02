@@ -153,7 +153,7 @@ export function add(a, b) {
     return a + b
 }
 
-// matcher.test.js
+// math.test.js
 import {add} from './math'
 ```
 
@@ -493,18 +493,3 @@ describe('这里是描述：测试跟xxx相关', ()=> {
 
 钩子函数是有**作用域**的，取决于钩子函数位于 `describe` 中的位置。
 
-## mock
-
-
-
-## snapshot
-
-用来测试配置文件。目的只是为了提醒你，配置文件真的是要改，还是手滑了。
-
-
-
-相关命令行操作模式
-
-* `i` 下一个需要更新的 snapshot
-
-* `u` 更新 snapshot
